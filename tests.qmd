@@ -1,0 +1,88 @@
+---
+title: "Geospatial Mapping"
+format: pdf
+editor: visual
+editor_options: 
+  chunk_output_type: console
+---
+
+## Test 1 (Easy):
+
+Download the `cubble` package and run the glyph map examples (`?geom_glyph`).
+
+```{r}
+#| label: load-pkg-data
+#| warning: false
+#| message: false
+
+if (!require("cubble")) {
+  install.packages("cubble")
+  library(cubble)
+}
+library(ggplot2)
+```
+
+```{r}
+#| label: ggally-example-basic
+#| message: false
+
+# basic glyph map with reference line and box---------------
+p <- ggplot(data = GGally::nasa,
+       aes(x_major = long, x_minor = day,
+           y_major = lat, y_minor = surftemp)) +
+  geom_glyph_box() +
+  geom_glyph_line() +
+  geom_glyph() +
+  theme_bw()
+p
+```
+
+```{r}
+#| label: glyph-example-rescaled
+
+# rescale on each individual glyph ---------------
+p <- ggplot(data = GGally::nasa,
+       aes(x_major = long, x_minor = day,
+           y_major = lat, y_minor = surftemp)) +
+  geom_glyph(global_rescale = FALSE)
+p
+```
+
+```{r}
+#| label: glyph-example-adjusted
+
+# adjust width and height with relative & absolute value ---------------
+p <- ggplot() +
+  geom_glyph(data = GGally::nasa,
+             aes(x_major = long, x_minor = day,
+                 y_major = lat, y_minor = surftemp),
+                 width = rel(0.8), height = 1) +
+   theme_bw()
+p
+```
+
+```{r}
+#| label: glyph-example-polar
+
+# apply a re-scaling on Y and use polar coordinate
+p <-
+  GGally::nasa %>%
+  ggplot(aes(x_major = long, x_minor = day,
+             y_major = lat, y_minor = ozone)) +
+    geom_glyph_box(fill=NA) +
+    geom_glyph_line() +
+    geom_glyph(y_scale = GGally::range01, polar = TRUE)
+p
+```
+
+## Test 2 (Medium):
+
+read [the `Geoms` section](https://ggplot2.tidyverse.org/reference/index.html#geoms) in the ggplot2 package reference and other geoms available in the ggplot2 extensions. Create a example that is applicable to be used as a glyph on a map.
+
+```{r}
+#| label: glyph-recreation
+#| message: false
+
+library(sf)
+
+```
