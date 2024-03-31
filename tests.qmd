@@ -1,5 +1,5 @@
 ---
-title: "Geospatial Mapping"
+title: "GSOC Glyph Maps Tests"
 format: pdf
 editor: visual
 editor_options: 
