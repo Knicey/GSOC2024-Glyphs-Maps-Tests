@@ -19,7 +19,7 @@ if (!require("cubble")) {
   install.packages("cubble")
   library(cubble)
 }
-library(ggplot2)
+library(tidyverse)
 ```
 
 ```{r}
@@ -79,10 +79,42 @@ p
 
 read [the `Geoms` section](https://ggplot2.tidyverse.org/reference/index.html#geoms) in the ggplot2 package reference and other geoms available in the ggplot2 extensions. Create a example that is applicable to be used as a glyph on a map.
 
+I think all of the following geoms can be appropriately used as glyphs in order to visualize spatio-temporal data.
+
 ```{r}
-#| label: glyph-recreation
+#| label: glyph-examples
 #| message: false
 
-library(sf)
+library(palmerpenguins)
+library(ggridges)
+# install.packages("ggridges")
 
+penguins_grouped <- penguins |>
+  group_by(year) |>
+  summarise(
+    mean_bill = mean(bill_length_mm, na.rm = TRUE), 
+    mean_mass = mean(body_mass_g, na.rm = TRUE)
+  )
+
+# Density Plots
+ggplot(penguins) +
+  geom_density(aes(x = bill_length_mm, group = year, color = factor(year)), show.legend = FALSE) +
+  theme_void()
+
+# Density Plots
+ggplot(penguins) +
+  geom_density_2d(aes(x = bill_length_mm, y = body_mass_g), show.legend = FALSE) +
+  theme_void()
+
+# Ridgeline plots
+ggplot(penguins) + 
+  geom_density_ridges(aes(x = year, y = sex, fill = sex), show.legend = FALSE) + 
+  theme_void()
+
+# Bar Chart
+ggplot(penguins) +
+  geom_bar(aes(x = year, fill = factor(year), group = year), show.legend = FALSE) +
+  theme_void()
 ```
+
+## Test 3 (Hard):
