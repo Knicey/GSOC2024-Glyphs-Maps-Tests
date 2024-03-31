@@ -75,6 +75,8 @@ p <-
 p
 ```
 
+\pagebreak
+
 ## Test 2 (Medium):
 
 read [the `Geoms` section](https://ggplot2.tidyverse.org/reference/index.html#geoms) in the ggplot2 package reference and other geoms available in the ggplot2 extensions. Create a example that is applicable to be used as a glyph on a map.
@@ -84,6 +86,7 @@ I think all of the following geoms can be appropriately used as glyphs in order 
 ```{r}
 #| label: glyph-examples
 #| message: false
+#| warning: false
 
 library(palmerpenguins)
 library(ggridges)
@@ -101,7 +104,7 @@ ggplot(penguins) +
   geom_density(aes(x = bill_length_mm, group = year, color = factor(year)), show.legend = FALSE) +
   theme_void()
 
-# Density Plots
+# 2d Density Plots
 ggplot(penguins) +
   geom_density_2d(aes(x = bill_length_mm, y = body_mass_g), show.legend = FALSE) +
   theme_void()
@@ -111,10 +114,14 @@ ggplot(penguins) +
   geom_density_ridges(aes(x = year, y = sex, fill = sex), show.legend = FALSE) + 
   theme_void()
 
-# Bar Chart
+# Bar Charts
 ggplot(penguins) +
   geom_bar(aes(x = year, fill = factor(year), group = year), show.legend = FALSE) +
   theme_void()
 ```
 
+\pagebreak
+
 ## Test 3 (Hard):
+
+See <https://github.com/huizezhang-sherry/cubble/pull/28>
